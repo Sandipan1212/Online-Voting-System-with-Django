@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Voter Dashboard</h1>
+  
+  {% if message %}
+    <p>{{ message }}</p>
+  {% else %}
+    <h2>Active Voting Topics</h2>
+    
+    {% for topic in topics %}
+      <div>
+        <h3>{{ topic.title }}</h3>
+        <p>{{ topic.description }}</p>
+
+        {% if topic.has_voted %}
+          <p>You have already voted for this topic.</p>
+        {% else %}
+          <form method="POST" action="{% url 'vote' topic.id %}">
+            {% csrf_token %}
+            
+            <h4>Choose an option:</h4>
+            {% for option in topic.options.all %}
+                <p>{{ option.text }}</p> 
+              <label>
+                <input type="radio" name="option" value="{{ option.id }}">
+                {{ option.option_text }}
+              </label><br>
+            {% endfor %}
+            
+            <button type="submit">Vote</button>
+          </form>
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

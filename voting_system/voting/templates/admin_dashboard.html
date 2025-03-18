@@ -1,0 +1,32 @@
+<!-- admin_dashboard.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Admin Dashboard</h2>
+
+  <h3>Voting Topics</h3>
+  <ul>
+    {% for topic in topics %}
+      <li>
+        <strong>{{ topic.title }}</strong> ({{ topic.start_time }} - {{ topic.end_time }})
+        <a href="{% url 'delete_voting_topic' topic.id %}" onclick="return confirm('Are you sure you want to delete this topic?');">Delete Topic</a>
+        <ul>
+          {% for option in topic.options.all %}
+            <li>{{ option.option_text }}</li>
+            <a href="{% url 'delete_voting_option' option.id %}" onclick="return confirm('Are you sure you want to delete this option?');">Delete</a>
+          {% empty %}
+            <li>No options available yet.</li>
+          {% endfor %}
+        </ul>
+        <a href="{% url 'create_voting_option' topic.id %}">Add Options</a>
+        <a href="{% url 'results' topic.id %}">View Results</a>
+      </li>
+    {% empty %}
+      <li>No topics available.</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'create_voting_topic' %}">Create New Topic</a>
+  
+{% endblock %}
+

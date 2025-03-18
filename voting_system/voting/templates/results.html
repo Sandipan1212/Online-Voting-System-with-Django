@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Results for {{ topic.title }}</title>
+</head>
+<body>
+    <h1>Results for "{{ topic.title }}"</h1>
+
+    {% if results %}
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Option</th>
+                    <th>Votes</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for result in results %}
+                    <tr>
+                        <td>{{ result.option_text }}</td>
+                        <td>{{ result.votes }}</td>
+                    </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No votes have been cast yet.</p>
+    {% endif %}
+
+    {% if is_admin %}
+        <p>You are viewing as an Admin.</p>
+    {% elif user_voted %}
+        <p>You have already voted for this topic.</p>
+    {% endif %}
+</body>
+</html>
+
+
+

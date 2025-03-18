@@ -1,0 +1,24 @@
+{% comment %} <form method="POST" action="{% url 'cast_vote' topic.id %}">
+    {% csrf_token %}
+    <p>Select an option:</p>
+    {% for option in options %}
+        <label>
+            <input type="radio" name="vote" value="{{ option.id }}">
+            {{ option.option_text }}
+        </label><br>
+    {% empty %}
+        <p>No options available for this topic.</p>
+    {% endfor %}
+    <button type="submit">Vote</button>
+</form> {% endcomment %}
+
+
+<h1>Vote for {{ topic.title }}</h1>
+<form method="post">
+    {% csrf_token %}
+    {% for option in options %}
+        <input type="radio" id="option{{ option.id }}" name="vote" value="{{ option.id }}">
+        <label for="option{{ option.id }}">{{ option.option_text }}</label><br>
+    {% endfor %}
+    <button type="submit">Submit Vote</button>
+</form>

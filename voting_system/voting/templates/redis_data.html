@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redis Data</title>
+</head>
+<body>
+    {% if data %}
+        <h1>Data from Redis:</h1>
+        <pre>{{ data|pprint }}</pre>
+    {% else %}
+        <h1>{{ message }}</h1>
+    {% endif %}
+</body>
+</html>
